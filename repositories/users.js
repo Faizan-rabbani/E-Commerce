@@ -1,4 +1,5 @@
 import fs from "fs";
+import crypto from "crypto";
 
 class UsersRepository {
   constructor(filename) {
@@ -21,22 +22,62 @@ class UsersRepository {
   }
 
   async create(attrs){
+    attrs.id = this.randomID()
     const records = await this.getAll();
     records.push(attrs)
 
     await this.writeAll(records)
+    return attrs
   }
 
   async writeAll(records){
     await fs.promises.writeFile(this.filename, JSON.stringify(records,null,2))
   }
+
+  randomID(){
+    return crypto.randomBytes(4).toString('hex')
+  }
+
+  async getOne(id){
+    const records = await this.getAll()
+    return records.find(record => record.id === id)
+  }
+
+  async delete(id){
+    const records = await this.getAll()
+    const filterRecords = records.filter(record => record.id !== id)
+    await this.writeAll(filterRecords)
+  }
+
+  async update(id, attrs){
+    const records = await this.getAll()
+    const record = records.find(record => record.id === id)
+
+    if(!record){
+      throw new Error(`No record with id ${id} exists`)
+    }
+
+    Object.assign(record,attrs)
+    await this.writeAll(records)
+  }
+
+  async getOneBy(filters){
+    const records = await this.getAll()
+
+    for(let record of records){
+      let found = true
+
+      for(let key in filters){
+        if(record[key] !== filters[key]){
+          found = false
+        }
+      }
+
+      if(found){
+        return record;
+      }
+    }
+  }
 }
 
-const test = async () => {
-  const repo = new UsersRepository("users.json");
-  await repo.create({ name: "John Doe", email: "johndoe@example.com"})
-  const user = await repo.getAll();
-  console.log(user);
-};
-
-test();
+export default new UsersRepository('users.json');
