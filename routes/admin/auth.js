@@ -1,6 +1,6 @@
 import express from "express";
 import { check, validationResult } from "express-validator";
-import repo from "../../repositories/users.js";
+import userRepo from "../../repositories/users.js";
 import signupTemplate from "../../views/admin/auth/signup.js";
 import signinTemplate from "../../views/admin/auth/signin.js";
 import validator from "./validators.js";
@@ -21,7 +21,7 @@ router.post(
     }
 
     const { email, password, passwordconfirmation } = req.body;
-    const user = await repo.create({ email, password });
+    const user = await userRepo.create({ email, password });
     req.session.userId = user.id;
 
     res.send("Account Created");
@@ -47,7 +47,7 @@ router.post(
     }
     const { email } = req.body;
 
-    const user = await repo.getOneBy({ email });
+    const user = await userRepo.getOneBy({ email });
 
     req.session.userId = user.id;
     res.send("You are logged in");
