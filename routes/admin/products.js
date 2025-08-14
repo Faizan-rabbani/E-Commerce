@@ -1,23 +1,30 @@
-import express from 'express';
-import { validationResult } from 'express-validator';
+import express from "express";
+import { validationResult } from "express-validator";
+import multer from "multer";
+
+import productRepo from "../../repositories/products.js";
+import productNewTemplate from "../../views/admin/products/new.js";
+import validators from "./validators.js";
+
 const router = express.Router();
-import productRepo from '../../repositories/products.js'
-import productNewTemplate from '../../views/admin/products/new.js'
-import validators from './validators.js';
+const upload = multer({ storage: multer.memoryStorage() });
+router.get("/admin/product", (req, res) => {});
 
-router.get('/admin/product', (req,res) => {
+router.get("/admin/product/new", (req, res) => {
+  res.send(productNewTemplate());
+});
 
-})
+router.post(
+  "/admin/product/new",
+  [validators.requireTitle, validators.requirePrice],
+  upload.single("image"),
+  (req, res) => {
+    const errors = validationResult(req);
 
-router.get('/admin/product/new', (req,res) => {
-    res.send(productNewTemplate())
-})
+    console.log(req.file)
 
-router.post('/admin/product/new',[validators.requireTitle,validators.requirePrice], (req,res) => {
-    const errors = validationResult(req)
-    console.log(errors)
-
-    res.send('submitted')
-})
+    res.send("submitted");
+  }
+);
 
 export default router;

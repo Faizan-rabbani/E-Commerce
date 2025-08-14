@@ -4,7 +4,7 @@ import getError from '../../helper.js'
 export default (errors) => {
  return layout({
      content: `
-     <form method= "POST">
+     <form method= "POST" enctype = "multipart/form-data">
         <input name = "title" placeholder = "Title"/>
         <input name = "price" placeholder = "Price"/>
         <input name = "image" type = "file"/>
