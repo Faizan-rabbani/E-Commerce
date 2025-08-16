@@ -11,5 +11,12 @@ export default {
 
             next()
         }
+    },
+
+    requireAuth(req,res,next){
+         if(!req.session.userId){
+            res.redirect('/signin')
+        }
+        next()
     }
 }

@@ -26,7 +26,7 @@ router.post(
 
 router.get("/signout", (req, res) => {
   req.session = null;
-  res.redirect('/signin');
+  res.send('you are logged out');
 });
 
 router.get("/signin", (req, res) => {
