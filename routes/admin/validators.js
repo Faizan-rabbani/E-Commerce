@@ -23,22 +23,26 @@ export default {
           throw new Error("Email is already exists");
         }
       }),
-    password :
+    requirePassword :
     check("password")
       .trim()
-      .isLength({ min: 8, max: 20 })
-      .withMessage("Must be between 8 and 20 characters"),
-    passwordConfirmation: 
+      .notEmpty().withMessage("Password is required")
+      .isLength({ min: 4, max: 20 })
+      .withMessage("Must be between 4 and 20 characters"),
+
+    requirePasswordConfirmation:
     check("passwordConfirmation")
-        .trim()
-        .isLength({ min: 8, max: 20 })
-        .withMessage("Must be between 8 and 20 characters")
-        .custom((passwordconfirmation, { req }) => {
-            if (passwordconfirmation !== req.body.password) {
-                throw new Error("Passwords must match");
-            }
-        }),
-    requireEmialExist:  
+      .trim()
+      .notEmpty().withMessage("Password confirmation is required")
+      .isLength({ min: 4, max: 20 })
+      .withMessage("Must be between 4 and 20 characters")
+      .custom((passwordConfirmation, { req }) => {
+      if (passwordConfirmation !== req.body.password) {
+        throw new Error("Passwords must match");
+      }
+      return true;
+    }),
+    requireEmailExist:  
     check('email')
         .trim()
         .normalizeEmail()
@@ -50,7 +54,7 @@ export default {
             throw new Error("Email not found");
       }
         }),
-    requirePassword:  
+    requirePasswordExist:  
     check('password')
         .trim()
         .custom(async (password, {req}) => {

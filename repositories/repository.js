@@ -20,7 +20,7 @@ export default class Repository{
     const records = await this.getAll()
 
     records.push(attrs)
-    await this.writeAll(record)
+    await this.writeAll(records)
     return attrs
   }
 
