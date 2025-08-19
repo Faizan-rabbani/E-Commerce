@@ -1,4 +1,4 @@
-export default (content) => {
+export default ({content}) => {
   return `
     <!DOCTYPE html>
       <html lang="en">

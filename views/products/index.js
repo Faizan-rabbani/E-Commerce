@@ -15,7 +15,7 @@ export default (products) => {
             </div>
             <footer class="card-footer">
               <form action="/cart/products" method="POST">
-                <input hidden value = ${product.id} name = "productId" />
+                <input hidden value = "${product.id}" name = "productId" />
                 <button class="button has-icon is-inverted">
                   <i class="fa fa-shopping-cart"></i> Add to cart
                 </button>
@@ -27,30 +27,32 @@ export default (products) => {
     })
     .join("\n");
 
-  return layout(`
-    <section class="banner">
-      <div class="container">
-        <div class="columns is-centered">
-          <img src="/images/banner.jpg" />
+      return layout({
+    content: `
+      <section class="banner">
+        <div class="container">
+          <div class="columns is-centered">
+            <img src="/images/banner.jpg" />
+          </div>
         </div>
-      </div>
-    </section>
-    
-    <section>
-      <div class="container">
-        <div class="columns">
-          <div class="column "></div>
-          <div class="column is-four-fifths">
-            <div>
-              <h2 class="title text-center">Featured Items</h2>
-              <div class="columns products">
-                ${renderedProducts}  
+      </section>
+      
+      <section>
+        <div class="container">
+          <div class="columns">
+            <div class="column "></div>
+            <div class="column is-four-fifths">
+              <div>
+                <h2 class="title text-center">Featured Items</h2>
+                <div class="columns products">
+                  ${renderedProducts}  
+                </div>
               </div>
             </div>
+            <div class="column "></div>
           </div>
-          <div class="column "></div>
         </div>
-      </div>
-    </section>
-  `);
+      </section>
+    `
+  });
 };
