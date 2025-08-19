@@ -19,10 +19,10 @@ export default (content) => {
               <div>
                 <ul class="social">
                   <li>
-                    <a href=""><i class="fa fa-phone"></i>+1 555 987 6543</a>
+                    <a href=""><i class="fa fa-phone"></i>0309-9691790</a>
                   </li>
                   <li>
-                    <a href=""><i class="fa fa-envelope"></i> shop@myshop.com</a>
+                    <a href=""><i class="fa fa-envelope"></i> faizanstore@myshop.com</a>
                   </li>
                 </ul>
               </div>
@@ -41,7 +41,7 @@ export default (content) => {
             <div class="container navbar-container">
               <div>
                 <a href="/">
-                  <h3 class="title">EComm Shop</h3>
+                  <h3 class="title">Faizan EComm Shop</h3>
                 </a>
               </div>
               <div class="navbar-item">
